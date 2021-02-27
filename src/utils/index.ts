@@ -1,5 +1,9 @@
 import { useEffect, useState } from "react";
-export const cleanObject = (object) => {
+interface resultOption {
+  [key: string]: string;
+}
+
+export const cleanObject = (object: resultOption) => {
   let result = { ...object };
   Object.keys(result).forEach((key) => {
     const value = result[key];
@@ -10,21 +14,21 @@ export const cleanObject = (object) => {
   return result;
 };
 
-export const useMount = (cb) => {
+export const useMount = (cb: () => void) => {
   useEffect(() => {
     cb();
   }, []);
 };
 
 // 防抖函数
-export const debounce = (func, delay) => {
-  let timeout;
-  return (...param) => {
+export const debounce = (func: () => void, delay: number) => {
+  let timeout: number;
+  return () => {
     if (timeout) {
       clearTimeout(timeout);
     }
-    timeout = setTimeout(() => {
-      func(param);
+    timeout = window.setTimeout(() => {
+      func();
     }, delay);
   };
 };
@@ -34,7 +38,7 @@ export const debounce = (func, delay) => {
 // log()
 // log()
 // 防抖hook
-export const useDebounce = (value, delay) => {
+export const useDebounce = <T>(value: T, delay: number) => {
   const [debounceValue, setDebounceValue] = useState(value);
 
   useEffect(() => {
