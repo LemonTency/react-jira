@@ -1,5 +1,6 @@
 import React from "react";
-interface User {
+export interface User {
+  token: string;
   name: string;
   id: number;
 }
